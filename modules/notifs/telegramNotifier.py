@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-import telegram
-
+import requests
 
 class TelegramNotifier():
     """Initialize the telegram."""
@@ -15,9 +14,9 @@ class TelegramNotifier():
         self.token = cred['token']
         self.user_id = cred['user_id']
 
-    def notify(self, msg):
+    def send_message(self, msg):
         message = "ALERT\n" + str(msg)
+        apiURL = 'https://api.telegram.org/bot{}/sendMessage'.format(self.token)
+        response = requests.post(apiURL, json={'chat_id': self.user_id, 'text': message})
 
-        bot = telegram.Bot(token=self.token)
-        bot.send_message(chat_id=self.user_id, text=message)
         return
