@@ -2,13 +2,13 @@
 import telegram
 
 
-class SecureTeaTelegram():
+class TelegramNotifier():
     """Initialize the telegram."""
 
     modulename = "Telegram"
     enabled = True
 
-    def __init__(self, cred, debug):
+    def __init__(self, cred):
         """Init Telegram params.
         """
 
@@ -16,7 +16,7 @@ class SecureTeaTelegram():
         self.user_id = cred['user_id']
 
     def notify(self, msg):
-        message = str(msg) + "\n"
+        message = "ALERT\n" + str(msg)
 
         bot = telegram.Bot(token=self.token)
         bot.send_message(chat_id=self.user_id, text=message)
